@@ -1,34 +1,61 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Inputs")]
-    private InputSystem_Actions inputActions;
+    [Header("Movement")]
+    [SerializeField] private float movementSpeed = 5f;
 
-    private void Awake()
-    {
-        inputActions = new InputSystem_Actions();
-        inputActions.Player.Attack.performed += OnAttackPerformed;
-    }
+    private Camera _playerCamera;
+    private Vector2 moveInput;
 
-    private void OnEnable()
+    private void Start()
     {
-        inputActions?.Enable();
-    }
+        _playerCamera = GetComponentInChildren<Camera>();
 
-    private void OnDisable()
-    {
-        inputActions?.Disable();
+        // Subscribe to InputManager events
+        InputManager.Instance.OnMoveInput += HandleMoveInput;
     }
 
     private void OnDestroy()
     {
-        inputActions?.Dispose();
+        // Unsubscribe to prevent memory leaks
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMoveInput -= HandleMoveInput;
+        }
     }
 
-    private void OnAttackPerformed(InputAction.CallbackContext context)
+    private void HandleMoveInput(Vector2 input)
     {
-        Debug.Log($"attack triggered - Phase: {context.phase}, Control: {context.control.name}");
+        moveInput = input;
+    }
+
+    private void Update()
+    {
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
+        if (moveInput != Vector2.zero)
+        {
+            // Get camera's forward and right directions (ignore the Y component)
+            Vector3 cameraForward = _playerCamera.transform.forward;
+            Vector3 cameraRight = _playerCamera.transform.right;
+
+            // Flatten on Y axis for ground movement
+            cameraForward.y = 0;
+            cameraRight.y = 0;
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            // Calculate movement direction relative to camera
+            Vector3 moveDirection = (cameraForward * moveInput.y) + (cameraRight * moveInput.x);
+
+            // Apply the movement
+            transform.position += moveDirection * movementSpeed * Time.deltaTime;
+        }
     }
 }
