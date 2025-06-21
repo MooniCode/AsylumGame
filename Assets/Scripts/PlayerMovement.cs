@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 5f;
 
     private Camera _playerCamera;
+    private CharacterController _characterController;
     private Vector2 moveInput;
 
     private void Start()
     {
         _playerCamera = GetComponentInChildren<Camera>();
+        _characterController = GetComponent<CharacterController>();
 
         // Subscribe to InputManager events
         InputManager.Instance.OnMoveInput += HandleMoveInput;
@@ -55,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDirection = (cameraForward * moveInput.y) + (cameraRight * moveInput.x);
 
             // Apply the movement
-            transform.position += moveDirection * movementSpeed * Time.deltaTime;
+            _characterController.Move(moveDirection * movementSpeed * Time.deltaTime);
         }
     }
 }
