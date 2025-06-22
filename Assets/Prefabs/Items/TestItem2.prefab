@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2942890793226071603}
+  - component: {fileID: 3352143327850950470}
   - component: {fileID: 6230190140513198939}
   - component: {fileID: 1284809386949905195}
   - component: {fileID: 8037587865364770245}
@@ -34,6 +35,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3352143327850950470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729096466670465818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65163d621563de74f83345eb79fecf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrompt: Press E to pickup
+  itemName: Shovel
+  itemIcon: {fileID: 1716404934, guid: f38d5e5241ddf0442b2587bf70ce99f1, type: 3}
+  itemPrefab: {fileID: 5729096466670465818}
 --- !u!33 &6230190140513198939
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9075802770371914771}
+  - component: {fileID: 7859132148974034928}
   - component: {fileID: 5294771446921441059}
   - component: {fileID: 2082331833604877566}
   - component: {fileID: 76833784169106397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TestItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,6 +35,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7859132148974034928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5554875691306407194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65163d621563de74f83345eb79fecf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrompt: Press E to pickup
+  itemName: Flashlight
+  itemIcon: {fileID: 13278968, guid: 023532823a65eb143ba2faa9631b1b1a, type: 3}
+  itemPrefab: {fileID: 5554875691306407194}
 --- !u!33 &5294771446921441059
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -102,7 +119,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

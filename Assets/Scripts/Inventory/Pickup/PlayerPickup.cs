@@ -4,13 +4,15 @@ public class PlayerPickup : MonoBehaviour
 {
     private Camera _playerCamera;
     private LayerMask _layerMask;
-    private GameObject _currentTarget;
     private PickupableItem _currentPickupable;
 
     private void Start()
     {
         _layerMask = LayerMask.GetMask("Item");
         _playerCamera = GetComponentInChildren<Camera>();
+
+        InputManager.Instance.OnInteractInput += HandleInteractInput;
+        InputManager.Instance.OnDropInput += HandleDropInput;
     }
 
     private void Update()
@@ -27,17 +29,41 @@ public class PlayerPickup : MonoBehaviour
                 _currentPickupable = pickupable;
                 _currentPickupable.OnLookStart();
             }
-
-            if (Input.GetKeyDown(KeyCode.E) && _currentPickupable != null)
-            {
-                _currentPickupable.OnPickup(gameObject);
-                _currentPickupable = null;
-            }
         }
         else if (_currentPickupable != null)
         {
             _currentPickupable.OnLookEnd();
             _currentPickupable = null;
+        }
+    }
+
+    private void HandleInteractInput()
+    {
+        if (_currentPickupable != null)
+        {
+            _currentPickupable.OnPickup(gameObject);
+            _currentPickupable = null; // Clear the current pickupable after picking it up
+        }
+    }
+
+    private void HandleDropInput()
+    {
+        PlayerInventoryManager inventoryManager = GetComponent<PlayerInventoryManager>();
+        if (inventoryManager != null && inventoryManager.HasCurrentItem())
+        {
+            inventoryManager.DropCurrentItem();
+        }
+        else
+        {
+            Debug.Log("No item to drop");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnInteractInput -= HandleInteractInput;
         }
     }
 }

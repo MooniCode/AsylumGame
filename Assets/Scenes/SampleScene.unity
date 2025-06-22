@@ -517,56 +517,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94a01bde908369e44926d206d0391a2f, type: 3}
---- !u!1 &626956319
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 626956321}
-  - component: {fileID: 626956320}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &626956320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 626956319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 692d99224488eb34d8cd5bc6ac1e22a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hotbarSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!4 &626956321
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 626956319}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.34871086, y: -0.14817706, z: -6.281537}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632024915
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,9 +528,9 @@ GameObject:
   - component: {fileID: 632024916}
   - component: {fileID: 632024917}
   - component: {fileID: 632024920}
+  - component: {fileID: 632024921}
   - component: {fileID: 632024918}
   - component: {fileID: 632024919}
-  - component: {fileID: 632024921}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1116,7 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0419dc027a69b7a4a9090f9cffed7033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraSens: 15
+  _cameraSens: 90
   _verticalClampMin: -90
   _verticalClampMax: 90
 --- !u!1001 &905868003
@@ -1755,32 +1705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692d99224488eb34d8cd5bc6ac1e22a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbarSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!1 &1507166396 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5554875691306407194, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
-  m_PrefabInstance: {fileID: 8616152181389593239}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1507166407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507166396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65163d621563de74f83345eb79fecf12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupPrompt: Press E to pickup
-  itemName: Flashlight
-  itemIcon: {fileID: 13278968, guid: 023532823a65eb143ba2faa9631b1b1a, type: 3}
+  hotbarSlots: []
 --- !u!1001 &1532108050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2217,26 +2142,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: f50ff6d5459f9fe46a2d851a0c493c68, type: 2}
   m_BuildHeightMesh: 0
---- !u!1 &2086224199 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5729096466670465818, guid: a3df7ce9ef3062047a57a8610e07a1d5, type: 3}
-  m_PrefabInstance: {fileID: 3665686759716533505}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2086224209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2086224199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65163d621563de74f83345eb79fecf12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupPrompt: Press E to pickup
-  itemName: Shovel
-  itemIcon: {fileID: 1716404934, guid: f38d5e5241ddf0442b2587bf70ce99f1, type: 3}
 --- !u!1001 &523588444784623451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2365,17 +2270,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestItem2
       objectReference: {fileID: 0}
-    - target: {fileID: 5729096466670465818, guid: a3df7ce9ef3062047a57a8610e07a1d5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5729096466670465818, guid: a3df7ce9ef3062047a57a8610e07a1d5, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 2086224209}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3df7ce9ef3062047a57a8610e07a1d5, type: 3}
 --- !u!1001 &7611417371375252616
 PrefabInstance:
@@ -2482,17 +2380,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 76833784169106397, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5554875691306407194, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
       propertyPath: m_Name
       value: TestItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 5554875691306407194, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9075802770371914771, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2537,10 +2427,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5554875691306407194, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1507166407}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -2557,4 +2444,3 @@ SceneRoots:
   - {fileID: 719951364}
   - {fileID: 8616152181389593239}
   - {fileID: 3665686759716533505}
-  - {fileID: 626956321}

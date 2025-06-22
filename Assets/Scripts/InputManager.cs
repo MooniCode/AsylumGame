@@ -12,6 +12,10 @@ public class InputManager : MonoBehaviour
     public event Action<Vector2> OnMoveInput;
     public event Action<Vector2> OnLookInput;
     public event Action OnAttackInput;
+    public event Action OnInteractInput;
+    public event Action OnPreviousInput;
+    public event Action OnNextInput;
+    public event Action OnDropInput;
 
     private void Awake()
     {
@@ -32,13 +36,26 @@ public class InputManager : MonoBehaviour
         inputActions = new InputSystem_Actions();
 
         // Subscribe to input events
+        // Movement
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Move.canceled += OnMoveCanceled;
 
+        // Looking
         inputActions.Player.Look.performed += OnLookPerformed;
         inputActions.Player.Look.canceled += OnLookCanceled;
 
+        // Attacking
         inputActions.Player.Attack.performed += OnAttackPerformed;
+
+        // Interacting
+        inputActions.Player.Interact.performed += OnInteractPerformed;
+
+        // Scrolling
+        inputActions.Player.Previous.performed += OnPreviousPerformed;
+        inputActions.Player.Next.performed += OnNextPerformed;
+
+        // Dropping
+        inputActions.Player.Drop.performed += OnDropPerformed;
     }
 
     private void OnEnable()
@@ -80,5 +97,25 @@ public class InputManager : MonoBehaviour
     private void OnAttackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         OnAttackInput?.Invoke();
+    }
+
+    private void OnInteractPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnInteractInput?.Invoke();
+    }
+
+    private void OnPreviousPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnPreviousInput?.Invoke();
+    }
+
+    private void OnNextPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnNextInput?.Invoke();
+    }
+
+    private void OnDropPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnDropInput?.Invoke();
     }
 }

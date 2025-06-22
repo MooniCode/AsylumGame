@@ -15,44 +15,24 @@ public class HotBar : MonoBehaviour
             hotbarSlots = GetComponentsInChildren<HotbarSlot>();
         }
 
+        InputManager.Instance.OnPreviousInput += HandlePreviousInput;
+        InputManager.Instance.OnNextInput += HandleNextInput;
+
         UpdateSelection();
     }
 
-    private void Update()
+    private void HandlePreviousInput()
     {
-        HandleScrollInput();
-        HandleNumberKeyInput();
+        Debug.Log($"Previous input - changing from slot {currentSlot}");
+        currentSlot = (currentSlot - 1 + hotbarSlots.Length) % hotbarSlots.Length;
+        UpdateSelection();
     }
 
-    private void HandleScrollInput()
+    private void HandleNextInput()
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-
-        if (scroll > 0f)
-        {
-            Debug.Log($"Scrolling up from slot {currentSlot}");
-            currentSlot = (currentSlot + 1) % hotbarSlots.Length;
-            UpdateSelection();
-        }
-        else if (scroll < 0f)
-        {
-            Debug.Log($"Scrolling down from slot {currentSlot}");
-            currentSlot = (currentSlot - 1 + hotbarSlots.Length) % hotbarSlots.Length;
-            UpdateSelection();
-        }
-    }
-
-    private void HandleNumberKeyInput()
-    {
-        for (int i = 0; i < Mathf.Min(hotbarSlots.Length, 9); i++)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + 1))
-            {
-                currentSlot = i;
-                UpdateSelection();
-                break;
-            }
-        }
+        Debug.Log($"Next input - changing from slot {currentSlot}");
+        currentSlot = (currentSlot + 1) % hotbarSlots.Length;
+        UpdateSelection();
     }
 
     public bool AddItemToCurrentSlot(Item item)
@@ -80,6 +60,11 @@ public class HotBar : MonoBehaviour
         return false;
     }
 
+    public Item RemoveCurrentItem()
+    {
+        return hotbarSlots[currentSlot].RemoveItem();
+    }
+
     public Item GetCurrentItem()
     {
         return hotbarSlots[currentSlot].StoredItem;
@@ -102,6 +87,16 @@ public class HotBar : MonoBehaviour
         for (int i = 0; i < hotbarSlots.Length; i++)
         {
             hotbarSlots[i].SetSelected(i == currentSlot);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from events to prevent memory leaks
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnPreviousInput -= HandlePreviousInput;
+            InputManager.Instance.OnNextInput -= HandleNextInput;
         }
     }
 }
