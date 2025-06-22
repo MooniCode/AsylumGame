@@ -13,7 +13,6 @@ public class PlayerInventoryManager : MonoBehaviour
         if (hotbar == null)
         {
             hotbar = FindAnyObjectByType<HotBar>();
-
             if (hotbar == null)
             {
                 Debug.Log("Hotbar is not found in the scene");
@@ -40,47 +39,111 @@ public class PlayerInventoryManager : MonoBehaviour
             if (droppedItem != null)
             {
                 SpawnDroppedItem(droppedItem);
-                Debug.Log($"Dropped {droppedItem.itemName}");
             }
         }
     }
 
     private void SpawnDroppedItem(Item item)
     {
-        // Check if the item has a world prefab
         if (item.worldPrefab == null)
         {
             Debug.LogWarning($"Item {item.itemName} does not have a world prefab to drop.");
             return;
         }
 
-        // Raycast down from player camera to find ground
-        Vector3 dropPosition;
-        LayerMask groundLayer = LayerMask.GetMask("Ground");
+        LayerMask groundLayer = LayerMask.GetMask("Ground", "Building");
 
         if (Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
         {
-            dropPosition = hit.point;
-            Debug.Log($"Dropping {item.itemName} at position {dropPosition} on ground {hit.collider.gameObject.name}");
+            Vector3 groundNormal = hit.normal;
+
+            // Get bounds from a temporary object
+            GameObject tempObject = Instantiate(item.worldPrefab, Vector3.zero, Quaternion.identity);
+            tempObject.SetActive(true);
+            Bounds bounds = GetObjectBounds(tempObject);
+            DestroyImmediate(tempObject);
+
+            // Create the actual dropped object
+            GameObject droppedObject = Instantiate(item.worldPrefab, hit.point, Quaternion.identity);
+
+            // Align to ground and apply player rotation
+            AlignItemToGroundAndPlayer(droppedObject, groundNormal);
+
+            // Position above ground surface
+            float bottomOffset = bounds.extents.y;
+            Vector3 finalPosition = hit.point + (groundNormal * bottomOffset);
+            droppedObject.transform.position = finalPosition;
+
+            droppedObject.SetActive(true);
+
+            // Configure the dropped item
+            SimplePickupable pickupable = droppedObject.GetComponent<SimplePickupable>();
+            if (pickupable != null)
+            {
+                pickupable.SetItemData(item.itemName, item.icon);
+            }
         }
         else
         {
-            // If no ground found, just drop at players feet
-            dropPosition = transform.position;
-            Debug.Log($"No ground found, dropping {item.itemName} at player position {dropPosition}");
+            Debug.LogWarning("No ground found beneath player");
+        }
+    }
+
+    private Bounds GetObjectBounds(GameObject obj)
+    {
+        // Try collider first
+        Collider col = obj.GetComponent<Collider>();
+        if (col != null && col.enabled)
+        {
+            return col.bounds;
         }
 
-        // Instantiate the item in the world
-        GameObject droppedObject = Instantiate(item.worldPrefab, dropPosition, Quaternion.identity);
-
-        // Makse sure the dropped object is active
-        droppedObject.SetActive(true);
-
-        // Configure the dropped item with the original data
-        SimplePickupable pickupable = droppedObject.GetComponent<SimplePickupable>();
-        if (pickupable != null)
+        // Try child renderers
+        Renderer[] childRenderers = obj.GetComponentsInChildren<Renderer>();
+        if (childRenderers.Length > 0)
         {
-            pickupable.SetItemData(item.itemName, item.icon);
+            Bounds combinedBounds = childRenderers[0].bounds;
+            for (int i = 1; i < childRenderers.Length; i++)
+            {
+                combinedBounds.Encapsulate(childRenderers[i].bounds);
+            }
+            return combinedBounds;
+        }
+
+        // Fallback
+        return new Bounds(obj.transform.position, Vector3.one * 0.5f);
+    }
+
+    private void AlignItemToGroundAndPlayer(GameObject droppedObject, Vector3 groundNormal)
+    {
+        // Find the CameraRoot child object
+        Transform cameraRoot = transform.Find("CameraRoot");
+
+        Vector3 playerForwardDirection = Vector3.forward;
+        if (cameraRoot != null)
+        {
+            // Get the actual forward direction the player is facing
+            playerForwardDirection = cameraRoot.forward;
+        }
+        else
+        {
+            Debug.LogWarning("CameraRoot not found! Using camera's parent forward as fallback.");
+            playerForwardDirection = playerCamera.transform.parent.forward;
+        }
+
+        // Project the player's forward direction onto the ground plane
+        Vector3 projectedForward = Vector3.ProjectOnPlane(playerForwardDirection, groundNormal).normalized;
+
+        // Create rotation using LookRotation (more robust than Euler angles)
+        if (projectedForward != Vector3.zero)
+        {
+            droppedObject.transform.rotation = Quaternion.LookRotation(projectedForward, groundNormal);
+        }
+        else
+        {
+            // Fallback if projection results in zero vector
+            Quaternion groundAlignment = Quaternion.FromToRotation(Vector3.up, groundNormal);
+            droppedObject.transform.rotation = groundAlignment;
         }
     }
 
