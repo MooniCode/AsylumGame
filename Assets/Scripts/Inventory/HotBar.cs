@@ -23,26 +23,26 @@ public class HotBar : MonoBehaviour
 
     private void HandlePreviousInput()
     {
-        Debug.Log($"Previous input - changing from slot {currentSlot}");
+        // Debug.Log($"Previous input - changing from slot {currentSlot}");
         currentSlot = (currentSlot - 1 + hotbarSlots.Length) % hotbarSlots.Length;
         UpdateSelection();
     }
 
     private void HandleNextInput()
     {
-        Debug.Log($"Next input - changing from slot {currentSlot}");
+        // Debug.Log($"Next input - changing from slot {currentSlot}");
         currentSlot = (currentSlot + 1) % hotbarSlots.Length;
         UpdateSelection();
     }
 
     public bool AddItemToCurrentSlot(Item item)
     {
-        Debug.Log($"Trying to add {item.itemName} to slot {currentSlot}");
+        // Debug.Log($"Trying to add {item.itemName} to slot {currentSlot}");
 
         // Try current slot first
         if (hotbarSlots[currentSlot].TryAddItem(item))
         {
-            Debug.Log($"Added {item.itemName} to current slot {currentSlot}");
+            // Debug.Log($"Added {item.itemName} to current slot {currentSlot}");
             return true;
         }
 
@@ -51,7 +51,7 @@ public class HotBar : MonoBehaviour
         {
             if (hotbarSlots[i].TryAddItem(item))
             {
-                Debug.Log($"Added {item.itemName} to slot {i}");
+                // Debug.Log($"Added {item.itemName} to slot {i}");
                 return true;
             }
         }

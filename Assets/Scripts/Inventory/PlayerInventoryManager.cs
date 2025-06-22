@@ -56,14 +56,18 @@ public class PlayerInventoryManager : MonoBehaviour
 
         // Raycast down from player camera to find ground
         Vector3 dropPosition;
-        if (Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity))
+        LayerMask groundLayer = LayerMask.GetMask("Ground");
+
+        if (Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, Mathf.Infinity, groundLayer))
         {
             dropPosition = hit.point;
+            Debug.Log($"Dropping {item.itemName} at position {dropPosition} on ground {hit.collider.gameObject.name}");
         }
         else
         {
             // If no ground found, just drop at players feet
             dropPosition = transform.position;
+            Debug.Log($"No ground found, dropping {item.itemName} at player position {dropPosition}");
         }
 
         // Instantiate the item in the world

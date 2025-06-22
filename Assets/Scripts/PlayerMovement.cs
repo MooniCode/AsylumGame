@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,9 +8,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float movementSpeed = 5f;
 
+    [Header("Gravity")]
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float groundCheckDistance = 0.1f;
+
     private Camera _playerCamera;
     private CharacterController _characterController;
     private Vector2 moveInput;
+    private float verticalVelocity;
 
     private void Start()
     {
@@ -37,10 +43,26 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         HandleMovement();
+        HandleGravity();
+    }
+
+    private void HandleGravity()
+    {
+        if (_characterController.isGrounded)
+        {
+            verticalVelocity = -groundCheckDistance; // Reset vertical velocity when grounded
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime; // Apply gravity when not grounded
+        }
     }
 
     private void HandleMovement()
     {
+        Vector3 movement = Vector3.zero;
+
+        // Handle horizontal movement
         if (moveInput != Vector2.zero)
         {
             // Get camera's forward and right directions (ignore the Y component)
@@ -55,9 +77,13 @@ public class PlayerMovement : MonoBehaviour
 
             // Calculate movement direction relative to camera
             Vector3 moveDirection = (cameraForward * moveInput.y) + (cameraRight * moveInput.x);
-
-            // Apply the movement
-            _characterController.Move(moveDirection * movementSpeed * Time.deltaTime);
+            movement = moveDirection * movementSpeed;
         }
+
+        // Add vertical movement (gravity/falling)
+        movement.y = verticalVelocity;
+
+        // Apply the movement
+        _characterController.Move(movement * Time.deltaTime);
     }
 }
