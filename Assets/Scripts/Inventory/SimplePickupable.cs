@@ -11,51 +11,32 @@ public class SimplePickupable : PickupableItem
 
     public override void OnPickup(GameObject player)
     {
-        // Create the appropriate item data
-        Item pickedUpItem = new SimpleItem();
-        pickedUpItem.itemName = itemName;
-        pickedUpItem.icon = itemIcon;
+        // Get tge complete item data from the ItemDatabase
+        Item pickedUpItem = null;
 
-        // Create a template GameObject that can be used for dropping
-        pickedUpItem.worldPrefab = CreateDropTemplate();
+        if (ItemDatabase.Instance != null)
+        {
+            pickedUpItem = ItemDatabase.Instance.GetItemByName(itemName);
+        }
 
         // Try to get the inventory manager from the player
         PlayerInventoryManager inventoryManager = player.GetComponent<PlayerInventoryManager>();
         if (inventoryManager != null && inventoryManager.TryAddItem(pickedUpItem))
         {
-            Destroy(gameObject);
+            // Get the WorldItem component and call OnPickedUp to properly unregister
+            WorldItem worldItem = GetComponent<WorldItem>();
+            if (worldItem != null)
+            {
+                worldItem.OnPickedUp(); // This will destroy the object and unregister it
+            }
+            else
+            {
+                Destroy(gameObject); // Fallback if no WorldItem component
+            }
         }
         else
         {
             Debug.Log($"Could not pick up {itemName} - inventory might be full or missing");
-            // Clean up the template if pickup failed
-            if (pickedUpItem.worldPrefab != null)
-                Destroy(pickedUpItem.worldPrefab);
-        }
-    }
-
-    private GameObject CreateDropTemplate()
-    {
-        // First try to get the actual prefab source
-        GameObject prefabSource = null;
-
-#if UNITY_EDITOR
-        prefabSource = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(gameObject);
-#endif
-
-        if (prefabSource != null)
-        {
-            Debug.Log($"Using prefab source for {itemName}");
-            return prefabSource;
-        }
-        else
-        {
-            // Create a copy of this GameObject to use as a drop template
-            GameObject template = Instantiate(gameObject);
-            template.name = itemName + "_DropTemplate";
-            template.SetActive(false);
-            DontDestroyOnLoad(template);
-            return template;
         }
     }
 

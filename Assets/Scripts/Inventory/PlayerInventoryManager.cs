@@ -82,6 +82,19 @@ public class PlayerInventoryManager : MonoBehaviour
             {
                 pickupable.SetItemData(item.itemName, item.icon);
             }
+
+            // Register with WorldItemManager for saving
+            WorldItem worldItem = droppedObject.GetComponent<WorldItem>();
+            if (worldItem == null)
+            {
+                worldItem = droppedObject.AddComponent<WorldItem>();
+            }
+
+            worldItem.SetItemId(item.itemName);
+            if (WorldItemManager.Instance != null)
+            {
+                WorldItemManager.Instance.RegisterWorldItem(worldItem);
+            }
         }
         else
         {

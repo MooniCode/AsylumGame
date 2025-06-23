@@ -98,6 +98,11 @@ public class SaveSystem : MonoBehaviour
         }
 
         //// === WORLD DATA ===
+        if (WorldItemManager.Instance != null)
+        {
+            saveData.world.worldItems = WorldItemManager.Instance.getAllWorldItemData();
+            Debug.Log($"Saving {saveData.world.worldItems.Count} world items");
+        }
 
         return saveData;
     }
@@ -155,6 +160,13 @@ public class SaveSystem : MonoBehaviour
             }
 
             hotbarReference.UpdateSelection();
+        }
+
+        // === WORLD DATA ===
+        if (WorldItemManager.Instance != null && saveData.world.worldItems != null)
+        {
+            WorldItemManager.Instance.LoadWorldItem(saveData.world.worldItems);
+            Debug.Log($"Loaded {saveData.world.worldItems.Count} world items");
         }
 
         Debug.Log("Succesfully loaded the save game");

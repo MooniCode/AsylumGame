@@ -62,6 +62,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 98106da4c60a4f249ac0100da4c390f3, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -6833831362741405469}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 98106da4c60a4f249ac0100da4c390f3, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1825636737798184446}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 98106da4c60a4f249ac0100da4c390f3, type: 3}
       insertIndex: -1
@@ -72,6 +75,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 98106da4c60a4f249ac0100da4c390f3, type: 3}
   m_PrefabInstance: {fileID: 306844029288620082}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6833831362741405469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613414054777560419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b821c9768b3bdab47b7f6abf5a8aa5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: Flashlight
 --- !u!114 &1825636737798184446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrompt: Press E to pickup
-  itemName: FlashLight
-  itemIcon: {fileID: 0}
+  itemName: Flashlight
+  itemIcon: {fileID: 13278968, guid: 023532823a65eb143ba2faa9631b1b1a, type: 3}
 --- !u!64 &-5078506644229818500
 MeshCollider:
   m_ObjectHideFlags: 0

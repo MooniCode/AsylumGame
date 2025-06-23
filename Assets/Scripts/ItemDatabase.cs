@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "itemDatabase", menuName = "Inventory/ItemDatabase")]
@@ -31,6 +30,10 @@ public class ItemDatabase : ScriptableObject
             item.itemName = itemName;
             item.icon = data.itemIcon;
             item.worldPrefab = data.worldPrefab;
+
+            // Debug line
+            Debug.Log($"Created item {itemName} with worldPrefab: {(item.worldPrefab != null ? item.worldPrefab.name : "NULL")}");
+
             return item;
         }
         return null;

@@ -78,6 +78,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d40355b629beea4b915c0ad9d6cc44a, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5252703968959246256}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d40355b629beea4b915c0ad9d6cc44a, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 6696511042993647020}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d40355b629beea4b915c0ad9d6cc44a, type: 3}
       insertIndex: -1
@@ -88,6 +91,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d40355b629beea4b915c0ad9d6cc44a, type: 3}
   m_PrefabInstance: {fileID: 5013973745379988138}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5252703968959246256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283953126629404667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b821c9768b3bdab47b7f6abf5a8aa5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: Shovel
 --- !u!114 &6696511042993647020
 MonoBehaviour:
   m_ObjectHideFlags: 0
