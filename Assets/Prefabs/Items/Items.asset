@@ -15,7 +15,7 @@ MonoBehaviour:
   allItems:
   - itemName: Flashlight
     itemIcon: {fileID: 13278968, guid: 023532823a65eb143ba2faa9631b1b1a, type: 3}
-    worldPrefab: {fileID: 5554875691306407194, guid: 3a1a5ce20dd443d439e8452a6c5e82d4, type: 3}
+    worldPrefab: {fileID: 613414054777560419, guid: 92d5a5d9941cc034593260eff6753ed4, type: 3}
   - itemName: Shovel
     itemIcon: {fileID: 1716404934, guid: f38d5e5241ddf0442b2587bf70ce99f1, type: 3}
     worldPrefab: {fileID: 5283953126629404667, guid: 4a481cde028ee2a498449bede825128f, type: 3}
