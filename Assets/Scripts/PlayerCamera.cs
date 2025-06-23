@@ -58,6 +58,29 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    public void SetRotationFromSave(Vector3 verticalRot, Vector3 horizontalRot)
+    {
+        // Make sure camera is initialized
+        if (_playerCamera == null)
+        {
+            _playerCamera = GetComponentInChildren<Camera>();
+        }
+
+        if (_playerCamera == null)
+        {
+            Debug.LogError("_playerCamera is still null in SetRotationFromSave!");
+            return;
+        }
+
+        // Set the internal rotation variables that the script uses
+        _verticalRotation = verticalRot.x;
+        _horizontalRotation = horizontalRot.y;
+
+        // Apply the rotations immediately
+        transform.rotation = Quaternion.Euler(0, _horizontalRotation, 0);
+        _playerCamera.transform.localRotation = Quaternion.Euler(_verticalRotation, 0, 0);
+    }
+
     private void OnLookPerformed(InputAction.CallbackContext context)
     {
         _mouseInput = context.ReadValue<Vector2>();

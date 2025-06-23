@@ -7,6 +7,7 @@ public class SimplePickupable : PickupableItem
     [SerializeField] private Sprite itemIcon;
 
     public override string ItemName => itemName;
+    public Sprite ItemIcon => itemIcon;
 
     public override void OnPickup(GameObject player)
     {
@@ -23,7 +24,6 @@ public class SimplePickupable : PickupableItem
         if (inventoryManager != null && inventoryManager.TryAddItem(pickedUpItem))
         {
             Destroy(gameObject);
-            Debug.Log($"Picked up {ItemName}");
         }
         else
         {
@@ -50,7 +50,6 @@ public class SimplePickupable : PickupableItem
         }
         else
         {
-            Debug.Log($"Creating drop template for {itemName}");
             // Create a copy of this GameObject to use as a drop template
             GameObject template = Instantiate(gameObject);
             template.name = itemName + "_DropTemplate";

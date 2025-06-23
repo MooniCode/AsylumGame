@@ -1,11 +1,13 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HotBar : MonoBehaviour
 {
     [SerializeField] private HotbarSlot[] hotbarSlots;
-    private int currentSlot = 0;
+    public int currentSlot = 0;
 
     private void Start()
     {
@@ -80,14 +82,62 @@ public class HotBar : MonoBehaviour
         return !hotbarSlots[currentSlot].HasItem;
     }
 
-    private void UpdateSelection()
+    public void UpdateSelection()
     {
-        Debug.Log($"Updating selection to slot {currentSlot}");
-
         for (int i = 0; i < hotbarSlots.Length; i++)
         {
             hotbarSlots[i].SetSelected(i == currentSlot);
         }
+    }
+
+    // Save system methods
+    public List<string> GetHotbarItems()
+    {
+        List<string> itemNames = new List<string>();
+
+        foreach (HotbarSlot slot in hotbarSlots)
+        {
+            if (slot.HasItem)
+            {
+                itemNames.Add(slot.StoredItem.itemName);
+            }
+            else
+            {
+                itemNames.Add(""); // Empty slot
+            }
+        }
+
+        return itemNames;
+    }
+
+    public void SetHotbarFromSave(List<string> itemNames)
+    {
+        for (int i = 0; i < hotbarSlots.Length && i < itemNames.Count; i++)
+        {
+            // Clear the slot first
+            hotbarSlots[i].RemoveItem();
+
+            // Add item of not empty
+            if (!string.IsNullOrEmpty(itemNames[i]))
+            {
+                Item item = CreateItemFromName(itemNames[i]);
+                if (item != null)
+                {
+                    hotbarSlots[i].TryAddItem(item);
+                }
+            }
+        }
+
+        UpdateSelection(); // Refresh the visual
+    }
+
+    private Item CreateItemFromName(string itemName)
+    {
+        if (ItemDatabase.Instance != null)
+        {
+            return ItemDatabase.Instance.GetItemByName(itemName);
+        }
+        return null;
     }
 
     private void OnDestroy()

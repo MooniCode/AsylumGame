@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2082331833604877566}
   - component: {fileID: 76833784169106397}
   m_Layer: 3
-  m_Name: TestItem
+  m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1, z: -5.76}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,7 +50,6 @@ MonoBehaviour:
   pickupPrompt: Press E to pickup
   itemName: Flashlight
   itemIcon: {fileID: 13278968, guid: 023532823a65eb143ba2faa9631b1b1a, type: 3}
-  itemPrefab: {fileID: 5554875691306407194}
 --- !u!33 &5294771446921441059
 MeshFilter:
   m_ObjectHideFlags: 0
