@@ -9,8 +9,23 @@ public class InputManager : MonoBehaviour
     private InputSystem_Actions inputActions;
 
     // Events that other scripts can subscribe to
+    // Movement
     public event Action<Vector2> OnMoveInput;
+
+    // Sprint toggle mode
+    public event Action OnSprintInput;
+
+    // Sprint hold mode
+    public event Action OnSprintEnded;
+    public event Action OnSprintStart;
+
+    // Jump
+    public event Action OnJumpInput;
+
+    // Camera
     public event Action<Vector2> OnLookInput;
+
+    // Buttons
     public event Action OnAttackInput;
     public event Action OnInteractInput;
     public event Action OnPreviousInput;
@@ -39,6 +54,14 @@ public class InputManager : MonoBehaviour
         // Movement
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Move.canceled += OnMoveCanceled;
+
+        // Sprinting
+        inputActions.Player.Sprint.started += OnSprintStarted;
+        inputActions.Player.Sprint.performed += OnSprintPerformed;
+        inputActions.Player.Sprint.canceled += OnSprintCanceled;
+
+        // Jumping
+        inputActions.Player.Jump.performed += OnJumpPerformed;
 
         // Looking
         inputActions.Player.Look.performed += OnLookPerformed;
@@ -117,5 +140,25 @@ public class InputManager : MonoBehaviour
     private void OnDropPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         OnDropInput?.Invoke();
+    }
+
+    private void OnSprintPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnSprintInput?.Invoke();
+    }
+
+    private void OnSprintStarted(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnSprintStart?.Invoke();
+    }
+
+    private void OnSprintCanceled(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnSprintEnded?.Invoke();
+    }
+
+    private void OnJumpPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnJumpInput?.Invoke();
     }
 }

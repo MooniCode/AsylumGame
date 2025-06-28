@@ -142,23 +142,6 @@ public class SaveSystem : MonoBehaviour
         if (hotbarReference != null)
         {
             hotbarReference.currentSlot = saveData.inventory.currentHotbarSlot;
-
-            // Add debug logs
-            if (saveData.inventory.hotbarItems != null)
-            {
-                Debug.Log($"Loading {saveData.inventory.hotbarItems.Count} hotbar items");
-                for (int i = 0; i < saveData.inventory.hotbarItems.Count; i++)
-                {
-                    Debug.Log($"Slot {i}: '{saveData.inventory.hotbarItems[i]}'");
-                }
-
-                hotbarReference.SetHotbarFromSave(saveData.inventory.hotbarItems);
-            }
-            else
-            {
-                Debug.Log("No hotbar items to load (null)");
-            }
-
             hotbarReference.UpdateSelection();
         }
 
